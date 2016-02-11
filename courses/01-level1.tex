@@ -60,4 +60,111 @@ Voilà, maintenant que vous êtes familiarisées avec l'organisation générale 
 
 \section{Le \emph{noeud} du problème}
 
+Nous allons maintenant aborder une notion vraiment centrale à l'organisation de Godot: les \emph{noeuds}, ou \emph{nodes} en Anglais.
 
+Le concept va être abstrait pendant quelques lignes, mais nous verrons tout de suite comment l'utiliser en pratique.
+
+Le \emph{noeud} est, dans Godot, l'élément de base avec lequel vous allez créer vos jeux. Depuis un sprite pour représenter un personnage à une source de lumière pour l'éclairer, en passant par une zone déterminant la fin d'un niveau, tout dans Godot est un \emph{noeud}. Plus que ça, les \emph{noeuds} sont définis comme ayant les caractéristiques suivantes:
+
+\begin{enumerate}
+\item Un \emph{noeud} a un nom.
+\item Un \emph{noeud} possède un ensemble de \emph{propriétés} éditables.
+\item Un \emph{noeud} peut faire appel à du code pour remplir son rôle.
+\item Un \emph{noeud} peut être ajouté à un autre \emph{noeud} en tant qu'enfant.  
+\end{enumerate}
+
+Si les trois premières propriétés sont importantes, c'est la quatrième qui mérite que l'on s'y attarde. En effet, le fait de pouvoir organiser les \emph{noeuds} de façon hiérarchique permet de concevoir des constructions complexes, tout en conservant chaque \emph{noeud} isolé et simple.
+
+Par exemple, on pourrait imaginer un \emph{noeud} pour afficher un personnage 2D, qui aurait pour enfant un \emph{noeud} pour gérer son animation, un autre pour jouer les effets sonores qui lui sont propres, etc. Nous aurons l'occasion de faire usage de cette façon de faire rapidement, vous verrez, c'est très utile ! Mais pour le moment, il suffit de retenir que les \emph{noeuds} peuvent être organisés comme sur la figure \ref{lvl1-nodetree}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=6cm]{img/lvl1-nodetree.png}
+  \end{center}
+  \caption{\label{lvl1-nodetree} Exemple de hiérarchie de \emph{noeuds}.}
+\end{figure}
+
+Mais assez de théorie, passons à l'action !
+
+\section{Première visite au magasin de jouets}
+
+Il est temps de créer nos premiers \emph{noeuds}, et d'enfin voir quelque chose dans notre projet vide. En haut à droite de votre écran, dans l'onglet \emph{Scene}, vous trouverez une petite icône de page blanche, comme sur la figure \ref{lvl1-screen5}. Si vous passez le curseur de votre souris dessus, une info-bulle vous apprendra qu'il s'agit d'un bouton prévu pour créer un nouveau \emph{noeud}, ajoutant en plus un raccourci bien pratique pour faire la même chose : \codeintext{Ctrl + A}.
+
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=6cm]{img/lvl1-screen5.png}
+  \end{center}
+  \caption{\label{lvl1-screen5} Le bouton magique.}
+\end{figure}
+
+Si vous cliquez sur ledit bouton (ou utilisez le raccourci clavier, selon), une nouvelle fenêtre va s'ouvrir, avec tout un tas de choses dedans. Voyez plutôt à la figure \ref{lvl1-screen6}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=8cm]{img/lvl1-screen6.png}
+  \end{center}
+  \caption{\label{lvl1-screen6} Votre magasin de jouets perso !}
+\end{figure}
+
+Comme dans un vrai magasin, des objets de toutes les couleurs sont en compétition pour votre attention, et sont organisés d'une manière qui, si elle n'est pas apparente de prime abord, l'est à l'usage. La première chose que vous pourrez remarquer est que les différents objets sont principalement regroupés par couleur. Pour vous y retrouver, voici les trois couleurs principales :
+
+\begin{description}
+\item[Vert] pour tout ce qui touche aux interfaces utilisateur (boutons, boites de dialogue, ...)
+\item[Bleu] pour tout ce qui est 2D. C'est la couleur qui nous sera la plus utile !
+\item[Rouge] pour tout ce qui est 3D. Comme expliqué dans le préambule de ce cours, nous n'aurons pas vraiment l'occasion de nous pencher sur le sujet, mais il est bon de savoir ce qui existe dans Godot.
+\end{description}
+
+Les autres couleurs sont plus mineures, et moins essentielles (ou ne sont pas dans une catégorie précise).
+
+Spoiler : chaque élément de la liste présentée dans la fenêtre est un type de \emph{noeud} prédéfini dans Godot. Ils obéissent donc tous aux 4 propriétés que nous avons vues plus tôt !
+
+Nous allons donc sans plus tarder partir à la recherche d'un \emph{noeud} qui pourrait nous servir de base pour notre jeu. Il est toujours préférable d'avoir un noeud principal qui contient l'ensemble des éléments d'un niveau (ou ici du jeu entier), et en général il s'agira d'un \emph{noeud} le plus général possible. Ici, le type \codeintext{Node2D} est idéal puisqu'il est le plus simple des \emph{noeuds} 2D. Cherchez-le dans la liste via la barre de recherche au dessus de la fenêtre, ou en parcourant la liste, et appuyez sur \emph{Create}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=12cm]{img/lvl1-screen7.png}
+  \end{center}
+  \caption{\label{lvl1-screen7} Notre tout premier noeud ! N'est-il pas joli ?}
+\end{figure}
+
+Votre écran devrait ressembler fortement à celui de la figure \ref{lvl1-screen7}. Godot a gentiment fait plusieurs choses :
+
+\begin{itemize}
+\item Fait passer la fenêtre en mode 2D, si ce n'était pas déjà fait.
+\item Ajouté un objet \codeintext{Node2D} dans l'onglet \emph{Scene} en haut à droite.
+\item Sélectionné le \emph{noeud} et affiché ses \emph{propriétés} dans l'\emph{inspecteur} en bas à droite.
+\item Affiché un petit rectangle qui représente notre noeud sur l'écran.
+\end{itemize}
+
+Le petit rectangle permet de manipuler le \emph{noeud}, mais pour l'instant nous n'allons pas en avoir besoin, et pour être sûr de ne pas faire de bêtise, nous allons nous prémunir de nos propres actions en verrouillant le noeud. Pour ce faire, cherchez le bouton représentant un cadenas juste au dessus de la vue 2D du jeu, comme à la figure \ref{lvl1-lock}.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=5cm]{img/lvl1-lock.png}
+  \end{center}
+  \caption{\label{lvl1-lock} Ce petit cadenas peut vous sauver la vie !}
+\end{figure}
+
+Vous verrez un cadenas apparaître dans l'onglet \emph{Scene} ainsi que sur dans la vue 2D elle-même, et il signifie que vous ne pouvez pas modifier le \emph{noeud}. Cela parait un peu bizarre de vouloir restreindre ce qu'on peut modifier dans son propre projet, mais il vaut toujours mieux verrouiller ce que vous n'utilisez pas pour le moment. Tant qu'à faire, il vaut mieux éviter de perdre des heures de travail à cause d'un redimenssionnement inopiné qu'on n'avait pas remarqué, n'est-ce pas ?
+
+La dernière chose que nous devons faire, c'est renommer le \emph{noeud}. En effet, sans prendre cette bonne habitude, vous risquez de finir avec une \emph{scène} remplie d'objets nommés \codeintext{Node2D}, et bonne chance pour savoir lequel correspond à quoi.
+
+Pour changer le nom d'un \emph{noeud}, double-cliquez simplement sur son nom dans l'onglet \emph{Scene}, et entrez un nouveau nom. Conseil : choisissez un nom concis, de préférence sans espaces ou caractères spéciaux (un peu comme si vous nommiez une variable). Vous devrez souvent référencer ses noms dans votre code, donc évitez-vous des erreurs inutiles et faites dans la sobriété.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=4cm]{img/lvl1-rename.png}
+  \end{center}
+  \caption{\label{lvl1-rename} Probablement l'habitude la plus importante à attraper...}
+\end{figure}
+
+Une fois votre nom choisis, n'oubliez pas d'appuyer sur \emph{enter}, pour valider la saisie. De manière générale, Godot demande souvent de vous que vous validiez ce que vous venez d'entrer. Encore une bonne habitude... Si tout va bien, vous devriez avoir un \emph{noeud} renommé, comme à la figure \ref{lvl1-rename}.
+
+Voilà, ouf, ça y est, notre premier noeud est en place. Que la longueur de cette section ne vous intimide pas : il a fallu aborder beaucoup de concepts en une fois, mais maintenant, l'ensemble pourra être condensé en une phrase à chaque nouveau \emph{noeud} qu'il faudra créer. N'est-ce pas merveilleux ?
+
+En parlant de nouveaux \emph{noeuds}, que diriez-vous d'inclure un personnage à notre embryon de jeu ?
+
+\section{Un peu de \emph{character} (accent british requis)}
+
+Jusqu'ici, beaucoup de blabla pour finalement pas tellement de résultats, n'est-ce pas ? Accrochez vos ceintures, ça va changer !
