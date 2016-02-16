@@ -1,0 +1,17 @@
+::res://::1455543802
+icon.png::ImageTexture::1455107688::
+::res://scenes::1455543807
+level1.scn::PackedScene::1455543807::
+::res://sprites::1455541411
+::res://sprites/background::1455543727
+ground1.png::ImageTexture::1455543702::
+sky1.png::ImageTexture::1455541418::
+sky2.png::ImageTexture::1455541418::
+sky3.png::ImageTexture::1455541418::
+::res://sprites/character::1455027391
+character1.png::ImageTexture::1455104767::
+character2.png::ImageTexture::1455104767::
+character3.png::ImageTexture::1455104767::
+character4.png::ImageTexture::1455104767::
+character5.png::ImageTexture::1455104767::
+character6.png::ImageTexture::1455104767::
