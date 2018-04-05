@@ -34,5 +34,5 @@ func go_right():
 	heading_direction = 1.0
 
 func stop():
-	anim.play("idle")
+	anim.play("blink")
 	heading_direction = 0.0
